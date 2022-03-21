@@ -15,7 +15,7 @@ html, body {
   cursor: pointer;
 }
 
-.col-8 {
+.note-textarea, .note-title {
   color: #000000;
   width: 100%;
   outline: none;

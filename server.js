@@ -8,14 +8,11 @@ const PORT = process.env.PORT || 3001;
 const fs = require('fs');
 
 
-
 app.use(express.static('public'));
 
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
-
-
 
 
 function filterByQuery(query, notesArray) {
@@ -28,14 +25,9 @@ function filterByQuery(query, notesArray) {
 }
 
 
-
-
-
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname,'/public/notes.html'));
 });
-
-
 
 
 app.get('/api/notes', (req, res) => {
@@ -70,32 +62,6 @@ app.post('/api/notes', (req, res) => {
         })
     });
 })
-
-app.delete('/api/notes/:id', (req,res) => {
-    let id = req.params;
-    fs.readFile(path.join(__dirname,'/db/db.json'), (err, data) => {
-        if(err) {
-            console.log(`error here`)
-            res.status(500);
-            
-        }
-        let savedNotes = JSON.parse(data);
-        let editedNotes = savedNotes.filter( (data) => {
-            console.log(`NOTE ${data}`)
-            return data.id !== id;
-        });
-
-        fs.writeFile(path.join(__dirname,'/db/db.json'), JSON.stringify(editedNotes), (err) => {
-            if(err) {
-                res.status(500);
-            }
-            console.log(editedNotes)
-            res.json(`end`);
-        })
-    })
-})
-
-
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname,'/public/index.html'));

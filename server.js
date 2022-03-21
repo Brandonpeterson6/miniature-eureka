@@ -32,7 +32,7 @@ function filterByQuery(query, notesArray) {
 
 
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname,'./public/notes.html'));
+    res.sendFile(path.join(__dirname,'/public/notes.html'));
 });
 
 
@@ -40,7 +40,7 @@ app.get('/notes', (req, res) => {
 
 app.get('/api/notes', (req, res) => {
    
-    fs.readFile(path.join(__dirname,'./db/db.json'), (err, data) => {
+    fs.readFile(path.join(__dirname,'/db/db.json'), (err, data) => {
         if(err) {
             res.status(500);
         }
@@ -54,14 +54,14 @@ app.post('/api/notes', (req, res) => {
     let note  = req.body;
     note.id = id;
 
-    fs.readFile(path.join(__dirname,'./db/db.json'), (err, data) => {
+    fs.readFile(path.join(__dirname,'/db/db.json'), (err, data) => {
         if(err){
             res.status(500);
         }
         let savedNotes = JSON.parse(data);
         savedNotes.push(note);
 
-        fs.writeFile(path.join(__dirname,'./db/db.json'), JSON.stringify(savedNotes), (err) => {
+        fs.writeFile(path.join(__dirname,'/db/db.json'), JSON.stringify(savedNotes), (err) => {
             if(err) {
                 res.status(500);
             }
@@ -73,7 +73,7 @@ app.post('/api/notes', (req, res) => {
 
 app.delete('/api/notes/:id', (req,res) => {
     let id = req.params;
-    fs.readFile(path.join(__dirname,'./db/db.json'), (err, data) => {
+    fs.readFile(path.join(__dirname,'/db/db.json'), (err, data) => {
         if(err) {
             console.log(`error here`)
             res.status(500);
@@ -85,7 +85,7 @@ app.delete('/api/notes/:id', (req,res) => {
             return data.id !== id;
         });
 
-        fs.writeFile(path.join(__dirname,'./db/db.json'), JSON.stringify(editedNotes), (err) => {
+        fs.writeFile(path.join(__dirname,'/db/db.json'), JSON.stringify(editedNotes), (err) => {
             if(err) {
                 res.status(500);
             }
@@ -98,7 +98,7 @@ app.delete('/api/notes/:id', (req,res) => {
 
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname,'./public/index.html'));
+    res.sendFile(path.join(__dirname,'/public/index.html'));
 });
 
 app.listen(PORT, () => {
